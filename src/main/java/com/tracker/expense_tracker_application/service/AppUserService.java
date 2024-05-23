@@ -10,6 +10,11 @@ import jakarta.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Service class for handling operations related to AppUser entities.
+ * This class is marked as a Service, meaning it is a Spring component that holds business logic.
+ * It is also marked as Transactional, meaning that Spring will automatically manage transactions around method calls.
+ */
 @Service
 @Transactional
 public class AppUserService {
@@ -17,18 +22,37 @@ public class AppUserService {
     @Autowired
     private AppUserRepository appUserRepository;
 
+    /**
+     * Fetches all AppUser entities from the database.
+     * @return a list of all AppUser entities
+     */
     public List<AppUser> findAllUsers() {
         return appUserRepository.findAll();
     }
 
+    /**
+     * Fetches an AppUser entity by its ID.
+     * @param id the ID of the AppUser entity to fetch
+     * @return an Optional containing the AppUser entity if found, or empty if not found
+     */
     public Optional<AppUser> findUserById(Long id) {
         return appUserRepository.findById(id);
     }
 
+    /**
+     * Saves an AppUser entity to the database.
+     * If the AppUser entity already exists, it will be updated; otherwise, a new entity will be created.
+     * @param user the AppUser entity to save
+     * @return the saved AppUser entity
+     */
     public AppUser saveUser(AppUser user) {
         return appUserRepository.save(user);
     }
 
+    /**
+     * Deletes an AppUser entity by its ID.
+     * @param id the ID of the AppUser entity to delete
+     */
     public void deleteUserById(Long id) {
         appUserRepository.deleteById(id);
     }

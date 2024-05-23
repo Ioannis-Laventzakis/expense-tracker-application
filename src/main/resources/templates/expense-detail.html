@@ -2,26 +2,37 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+    <!-- The title of the webpage -->
     <title>Expense Detail</title>
+    <!-- Link to the Bootstrap CSS file -->
     <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
 </head>
 <body>
 <div class="container">
+    <!-- Heading of the page -->
     <h1>Expense Detail</h1>
+    <!-- Definition list to display the details of an expense -->
     <dl class="row">
+        <!-- Display the ID of the expense -->
         <dt class="col-sm-3">ID</dt>
         <dd class="col-sm-9" th:text="${expense.id}">1</dd>
+        <!-- Display the amount of the expense -->
         <dt class="col-sm-3">Amount</dt>
         <dd class="col-sm-9" th:text="${expense.amount}">100.00</dd>
+        <!-- Display the description of the expense -->
         <dt class="col-sm-3">Description</dt>
         <dd class="col-sm-9" th:text="${expense.description}">Groceries</dd>
+        <!-- Display the category of the expense -->
         <dt class="col-sm-3">Category</dt>
         <dd class="col-sm-9" th:text="${expense.category}">Food</dd>
+        <!-- Display the date of the expense -->
         <dt class="col-sm-3">Date</dt>
         <dd class="col-sm-9" th:text="${expense.date}">2024-05-23</dd>
+        <!-- Display the username of the user who made the expense -->
         <dt class="col-sm-3">User</dt>
         <dd class="col-sm-9" th:text="${expense.user.username}">username</dd>
     </dl>
+    <!-- Link to go back to the list of expenses -->
     <a th:href="@{/expenses}" class="btn btn-secondary">Back to List</a>
 </div>
 </body>
