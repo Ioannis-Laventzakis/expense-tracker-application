@@ -2,33 +2,47 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+    <!-- The title of the webpage -->
     <title>User List</title>
+    <!-- Link to the Bootstrap CSS file -->
     <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
 </head>
 <body>
 <div class="container">
+    <!-- Heading of the page -->
     <h1>User List</h1>
+    <!-- Table to display the list of users -->
     <table class="table">
+        <!-- Table header -->
         <thead>
         <tr>
+            <!-- Column headers -->
             <th>ID</th>
             <th>Username</th>
             <th>Email</th>
             <th>Actions</th>
         </tr>
         </thead>
+        <!-- Table body -->
         <tbody>
+        <!-- Each row represents a user -->
         <tr th:each="user : ${users}">
+            <!-- Display the ID of the user -->
             <td th:text="${user.id}">1</td>
+            <!-- Display the username of the user -->
             <td th:text="${user.username}">username</td>
+            <!-- Display the email of the user -->
             <td th:text="${user.email}">email@example.com</td>
             <td>
+                <!-- Link to view the details of the user -->
                 <a th:href="@{/users/{id}(id=${user.id})}" class="btn btn-primary">View</a>
+                <!-- Link to delete the user -->
                 <a th:href="@{/users/delete/{id}(id=${user.id})}" class="btn btn-danger">Delete</a>
             </td>
         </tr>
         </tbody>
     </table>
+    <!-- Link to add a new user -->
     <a th:href="@{/users/new}" class="btn btn-success">Add New User</a>
 </div>
 </body>

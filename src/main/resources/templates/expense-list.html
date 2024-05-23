@@ -2,15 +2,21 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+    <!-- The title of the webpage -->
     <title>Expense List</title>
+    <!-- Link to the Bootstrap CSS file -->
     <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
 </head>
 <body>
 <div class="container">
+    <!-- Heading of the page -->
     <h1>Expense List</h1>
+    <!-- Table to display the list of expenses -->
     <table class="table">
+        <!-- Table header -->
         <thead>
         <tr>
+            <!-- Column headers -->
             <th>ID</th>
             <th>Amount</th>
             <th>Description</th>
@@ -20,21 +26,32 @@
             <th>Actions</th>
         </tr>
         </thead>
+        <!-- Table body -->
         <tbody>
+        <!-- Each row represents an expense -->
         <tr th:each="expense : ${expenses}">
+            <!-- Display the ID of the expense -->
             <td th:text="${expense.id}">1</td>
+            <!-- Display the amount of the expense -->
             <td th:text="${expense.amount}">100.00</td>
+            <!-- Display the description of the expense -->
             <td th:text="${expense.description}">Groceries</td>
+            <!-- Display the category of the expense -->
             <td th:text="${expense.category}">Food</td>
+            <!-- Display the date of the expense -->
             <td th:text="${expense.date}">2024-05-23</td>
+            <!-- Display the username of the user who made the expense -->
             <td th:text="${expense.user.username}">username</td>
             <td>
+                <!-- Link to view the details of the expense -->
                 <a th:href="@{/expenses/{id}(id=${expense.id})}" class="btn btn-primary">View</a>
+                <!-- Link to delete the expense -->
                 <a th:href="@{/expenses/delete/{id}(id=${expense.id})}" class="btn btn-danger">Delete</a>
             </td>
         </tr>
         </tbody>
     </table>
+    <!-- Link to add a new expense -->
     <a th:href="@{/expenses/new}" class="btn btn-success">Add New Expense</a>
 </div>
 </body>
