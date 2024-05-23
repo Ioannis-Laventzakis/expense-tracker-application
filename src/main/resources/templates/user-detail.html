@@ -1,10 +1,22 @@
+<!-- File: src/main/resources/templates/user-detail.html -->
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <title>User Detail</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
 </head>
 <body>
-
+<div class="container">
+    <h1>User Detail</h1>
+    <dl class="row">
+        <dt class="col-sm-3">ID</dt>
+        <dd class="col-sm-9" th:text="${user.id}">1</dd>
+        <dt class="col-sm-3">Username</dt>
+        <dd class="col-sm-9" th:text="${user.username}">username</dd>
+        <dt class="col-sm-3">Email</dt>
+        <dd class="col-sm-9" th:text="${user.email}">email@example.com</dd>
+    </dl>
+    <a th:href="@{/users}" class="btn btn-secondary">Back to List</a>
+</div>
 </body>
 </html>

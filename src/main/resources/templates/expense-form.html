@@ -1,10 +1,39 @@
+<!-- File: src/main/resources/templates/expense-form.html -->
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Expense Form</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
 </head>
 <body>
-
+<div class="container">
+    <h1>Expense Form</h1>
+    <form th:action="@{/expenses}" th:object="${expense}" method="post">
+        <div class="form-group">
+            <label for="amount">Amount</label>
+            <input type="text" id="amount" class="form-control" th:field="*{amount}" />
+        </div>
+        <div class="form-group">
+            <label for="description">Description</label>
+            <input type="text" id="description" class="form-control" th:field="*{description}" />
+        </div>
+        <div class="form-group">
+            <label for="category">Category</label>
+            <input type="text" id="category" class="form-control" th:field="*{category}" />
+        </div>
+        <div class="form-group">
+            <label for="date">Date</label>
+            <input type="date" id="date" class="form-control" th:field="*{date}" />
+        </div>
+        <div class="form-group">
+            <label for="user">User</label>
+            <select id="user" class="form-control" th:field="*{user.id}">
+                <option th:each="user : ${users}" th:value="${user.id}" th:text="${user.username}">User</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Save</button>
+    </form>
+    <a th:href="@{/expenses}" class="btn btn-secondary">Cancel</a>
+</div>
 </body>
 </html>

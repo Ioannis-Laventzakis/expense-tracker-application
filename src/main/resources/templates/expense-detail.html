@@ -1,10 +1,28 @@
+<!-- File: src/main/resources/templates/expense-detail.html -->
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Expense Detail</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
 </head>
 <body>
-
+<div class="container">
+    <h1>Expense Detail</h1>
+    <dl class="row">
+        <dt class="col-sm-3">ID</dt>
+        <dd class="col-sm-9" th:text="${expense.id}">1</dd>
+        <dt class="col-sm-3">Amount</dt>
+        <dd class="col-sm-9" th:text="${expense.amount}">100.00</dd>
+        <dt class="col-sm-3">Description</dt>
+        <dd class="col-sm-9" th:text="${expense.description}">Groceries</dd>
+        <dt class="col-sm-3">Category</dt>
+        <dd class="col-sm-9" th:text="${expense.category}">Food</dd>
+        <dt class="col-sm-3">Date</dt>
+        <dd class="col-sm-9" th:text="${expense.date}">2024-05-23</dd>
+        <dt class="col-sm-3">User</dt>
+        <dd class="col-sm-9" th:text="${expense.user.username}">username</dd>
+    </dl>
+    <a th:href="@{/expenses}" class="btn btn-secondary">Back to List</a>
+</div>
 </body>
 </html>
