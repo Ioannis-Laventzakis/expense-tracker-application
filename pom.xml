@@ -1,60 +1,57 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!-- The project object model (POM) for Maven configuration -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<!-- The model version of the POM file -->
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<!-- The parent project from which this project inherits configuration -->
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>3.2.5</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<relativePath/>
 	</parent>
-	<!-- The group or organization that the project belongs to -->
 	<groupId>com.tracker</groupId>
-	<!-- The identifier for this artifact that is unique within the group -->
 	<artifactId>expense-tracker-application</artifactId>
-	<!-- The version of the artifact -->
 	<version>0.0.1-SNAPSHOT</version>
-	<!-- The human-readable name of the artifact -->
 	<name>expense-tracker-application</name>
-	<!-- The description of the project -->
 	<description>Demo project for Spring Boot</description>
-	<!-- Properties that can be used throughout the POM -->
 	<properties>
-		<!-- The version of Java to use -->
-		<java.version>22</java.version>
+		<java.version>17</java.version>
 	</properties>
-	<!-- The dependencies that this project has -->
 	<dependencies>
-		<!-- Spring Boot Data JPA Starter for using Spring Data JPA with Hibernate -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
-		<!-- Spring Boot Web Starter for building web, including RESTful, applications -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
-		<!-- PostgreSQL JDBC driver -->
 		<dependency>
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
 			<scope>runtime</scope>
 		</dependency>
-		<!-- Spring Boot Test Starter for testing Spring Boot applications -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>jakarta.validation</groupId>
+			<artifactId>jakarta.validation-api</artifactId>
+			<version>3.0.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate.validator</groupId>
+			<artifactId>hibernate-validator</artifactId>
+			<version>7.0.1.Final</version>
+		</dependency>
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
-	<!-- The build configuration -->
 	<build>
 		<plugins>
-			<!-- Spring Boot Maven Plugin for packaging executable jar or war archives -->
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>

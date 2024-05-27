@@ -88,10 +88,6 @@ The Expense Tracker is a simple application for managing user accounts and their
 | `/expenses/new`| POST   | Create a new expense              |
 | `/expenses/all`| GET    | List all expenses                 |
 
-## Testing
-- Manual testing of the services and features has been conducted.
-- All custom operations are tested for correctness.
-
 ## Setup Instructions
 1. **Clone the Repository**:
     ```bash

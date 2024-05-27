@@ -5,22 +5,26 @@ import com.tracker.expense_tracker_application.model.Expense;
 import com.tracker.expense_tracker_application.repository.ExpenseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import jakarta.transaction.Transactional;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
 /**
  * Service class for handling operations related to Expense entities.
  * This class is marked as a Service, meaning it is a Spring component that holds business logic.
- * It is also marked as Transactional, meaning that Spring will automatically manage transactions around method calls.
  */
 @Service
 @Transactional
 public class ExpenseService {
 
+    private final ExpenseRepository expenseRepository;
+
     @Autowired
-    private ExpenseRepository expenseRepository;
+    public ExpenseService(ExpenseRepository expenseRepository) {
+        this.expenseRepository = expenseRepository;
+    }
 
     /**
      * Fetches all Expense entities from the database.
@@ -55,5 +59,22 @@ public class ExpenseService {
      */
     public void deleteExpenseById(Long id) {
         expenseRepository.deleteById(id);
+    }
+
+    // Custom operations
+    public void updateAmountById(Double amount, Long id) {
+        expenseRepository.updateAmountById(amount, id);
+    }
+
+    public void deleteByCategory(String category) {
+        expenseRepository.deleteByCategory(category);
+    }
+
+    public List<Expense> findByUserId(Long userId) {
+        return expenseRepository.findByUserId(userId);
+    }
+
+    public List<Expense> findByDateRange(LocalDate startDate, LocalDate endDate) {
+        return expenseRepository.findByDateRange(startDate, endDate);
     }
 }

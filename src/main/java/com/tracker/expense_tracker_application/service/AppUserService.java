@@ -5,22 +5,25 @@ import com.tracker.expense_tracker_application.model.AppUser;
 import com.tracker.expense_tracker_application.repository.AppUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import jakarta.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
 /**
  * Service class for handling operations related to AppUser entities.
  * This class is marked as a Service, meaning it is a Spring component that holds business logic.
- * It is also marked as Transactional, meaning that Spring will automatically manage transactions around method calls.
  */
 @Service
 @Transactional
 public class AppUserService {
 
+    private final AppUserRepository appUserRepository;
+
     @Autowired
-    private AppUserRepository appUserRepository;
+    public AppUserService(AppUserRepository appUserRepository) {
+        this.appUserRepository = appUserRepository;
+    }
 
     /**
      * Fetches all AppUser entities from the database.

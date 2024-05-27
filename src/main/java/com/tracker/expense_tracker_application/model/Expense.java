@@ -2,6 +2,9 @@
 package com.tracker.expense_tracker_application.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 /**
@@ -13,14 +16,35 @@ public class Expense {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @NotNull(message = "Amount is mandatory")
+    @Min(value = 0, message = "Amount should be greater than or equal to zero")
     private Double amount;
+
+    @NotBlank(message = "Description is mandatory")
     private String description;
+
+    @NotBlank(message = "Category is mandatory")
     private String category;
+
+    @NotNull(message = "Date is mandatory")
     private LocalDate date;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
     private AppUser user;
+
+    // Default constructor
+    public Expense() {}
+
+    // Constructor with all fields
+    public Expense(Double amount, String description, String category, LocalDate date, AppUser user) {
+        this.amount = amount;
+        this.description = description;
+        this.category = category;
+        this.date = date;
+        this.user = user;
+    }
 
     // Getters and setters
 
@@ -95,4 +119,31 @@ public class Expense {
      * @param user the new user who made this expense
      */
     public void setUser(AppUser user) { this.user = user; }
+
+    @Override
+    public String toString() {
+        return "Expense{" +
+                "id=" + id +
+                ", amount=" + amount +
+                ", description='" + description + '\'' +
+                ", category='" + category + '\'' +
+                ", date=" + date +
+                ", user=" + user +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Expense expense = (Expense) o;
+
+        return id != null ? id.equals(expense.id) : expense.id == null;
+    }
+
+    @Override
+    public int hashCode() {
+        return id != null ? id.hashCode() : 0;
+    }
 }

@@ -2,57 +2,53 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <!-- The title of the webpage -->
     <title>Expense List</title>
-    <!-- Link to the Bootstrap CSS file -->
-    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <!-- Use Bootstrap CSS from a CDN -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css">
 </head>
 <body>
 <div class="container">
-    <!-- Heading of the page -->
-    <h1>Expense List</h1>
-    <!-- Table to display the list of expenses -->
-    <table class="table">
-        <!-- Table header -->
-        <thead>
-        <tr>
-            <!-- Column headers -->
-            <th>ID</th>
-            <th>Amount</th>
-            <th>Description</th>
-            <th>Category</th>
-            <th>Date</th>
-            <th>User</th>
-            <th>Actions</th>
-        </tr>
-        </thead>
-        <!-- Table body -->
-        <tbody>
-        <!-- Each row represents an expense -->
-        <tr th:each="expense : ${expenses}">
-            <!-- Display the ID of the expense -->
-            <td th:text="${expense.id}">1</td>
-            <!-- Display the amount of the expense -->
-            <td th:text="${expense.amount}">100.00</td>
-            <!-- Display the description of the expense -->
-            <td th:text="${expense.description}">Groceries</td>
-            <!-- Display the category of the expense -->
-            <td th:text="${expense.category}">Food</td>
-            <!-- Display the date of the expense -->
-            <td th:text="${expense.date}">2024-05-23</td>
-            <!-- Display the username of the user who made the expense -->
-            <td th:text="${expense.user.username}">username</td>
-            <td>
-                <!-- Link to view the details of the expense -->
-                <a th:href="@{/expenses/{id}(id=${expense.id})}" class="btn btn-primary">View</a>
-                <!-- Link to delete the expense -->
-                <a th:href="@{/expenses/delete/{id}(id=${expense.id})}" class="btn btn-danger">Delete</a>
-            </td>
-        </tr>
-        </tbody>
-    </table>
-    <!-- Link to add a new expense -->
+    <h1 class="my-4">Expense List</h1>
+    <!-- Check if there are expenses to display -->
+    <div th:if="${#lists.isEmpty(expenses)}">
+        <p>No expenses found.</p>
+    </div>
+    <div th:unless="${#lists.isEmpty(expenses)}">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Amount</th>
+                <th>Description</th>
+                <th>Category</th>
+                <th>Date</th>
+                <th>User</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="expense : ${expenses}">
+                <td th:text="${expense.id}">1</td>
+                <td th:text="${expense.amount}">100.00</td>
+                <td th:text="${expense.description}">Groceries</td>
+                <td th:text="${expense.category}">Food</td>
+                <td th:text="${expense.date}">2024-05-23</td>
+                <td th:text="${expense.user.username}">username</td>
+                <td>
+                    <a th:href="@{/expenses/{id}(id=${expense.id})}" class="btn btn-primary btn-sm">View</a>
+                    <!-- Use a form for delete to include CSRF token -->
+                    <form th:action="@{/expenses/delete/{id}(id=${expense.id})}" method="post" style="display:inline;">
+                        <input type="hidden" name="_method" value="delete"/>
+                        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
     <a th:href="@{/expenses/new}" class="btn btn-success">Add New Expense</a>
 </div>
+<!-- Include Bootstrap JS from a CDN -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
