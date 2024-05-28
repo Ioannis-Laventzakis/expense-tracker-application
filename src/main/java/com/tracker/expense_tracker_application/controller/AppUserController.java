@@ -1,7 +1,7 @@
 package com.tracker.expense_tracker_application.controller;
 
 import com.tracker.expense_tracker_application.model.AppUser;
-import com.tracker.expense_tracker_application.service.AppUserService;
+import com.tracker.expense_tracker_application.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,41 +17,41 @@ import java.util.Optional;
 @RequestMapping("/users")
 public class AppUserController {
 
-    private final AppUserService appUserService;
+    private final UserService appUserService;
 
     /**
      * Constructor for AppUserController.
      *
-     * @param appUserService the service to be used for user operations
+     * @param appUserService the user service to be used by this controller
      */
     @Autowired
-    public AppUserController(AppUserService appUserService) {
+    public AppUserController(UserService appUserService) {
         this.appUserService = appUserService;
     }
 
     /**
-     * Handles the GET request to fetch all users.
+     * Handles GET requests to fetch all users.
      *
-     * @param model the model to add attributes to for rendering in the view
-     * @return the name of the view to render
+     * @param model the model to which the users will be added
+     * @return the name of the view to be rendered
      */
     @GetMapping
     public String getAllUsers(Model model) {
-        List<AppUser> users = appUserService.findAllUsers();
+        List<AppUser> users = appUserService.getAllUsers();
         model.addAttribute("users", users);
         return "user-list";
     }
 
     /**
-     * Handles the GET request to fetch a user by their ID.
+     * Handles GET requests to fetch a user by their ID.
      *
      * @param id the ID of the user to fetch
-     * @param model the model to add attributes to for rendering in the view
-     * @return the name of the view to render
+     * @param model the model to which the user will be added
+     * @return the name of the view to be rendered
      */
     @GetMapping("/{id}")
     public String getUserById(@PathVariable Long id, Model model) {
-        Optional<AppUser> userOpt = appUserService.findUserById(id);
+        Optional<AppUser> userOpt = Optional.ofNullable(appUserService.getUserById(id));
         if (userOpt.isPresent()) {
             model.addAttribute("user", userOpt.get());
             return "user-detail";
@@ -62,10 +62,10 @@ public class AppUserController {
     }
 
     /**
-     * Handles the GET request to display the form for creating a new user.
+     * Handles GET requests to display the user creation form.
      *
-     * @param model the model to add attributes to for rendering in the view
-     * @return the name of the view to render
+     * @param model the model to which a new user will be added
+     * @return the name of the view to be rendered
      */
     @GetMapping("/new")
     public String createUserForm(Model model) {
@@ -74,26 +74,26 @@ public class AppUserController {
     }
 
     /**
-     * Handles the POST request to save a new user.
+     * Handles POST requests to save a new user.
      *
-     * @param user the user to save
+     * @param user the user to be saved
      * @return the redirect view name
      */
     @PostMapping
     public String saveUser(@ModelAttribute AppUser user) {
-        appUserService.saveUser(user);
+        appUserService.createUser(user);
         return "redirect:/users";
     }
 
     /**
-     * Handles the DELETE request to delete a user by their ID.
+     * Handles DELETE requests to delete a user by their ID.
      *
      * @param id the ID of the user to delete
      * @return the redirect view name
      */
     @DeleteMapping("/{id}")
     public String deleteUserById(@PathVariable Long id) {
-        appUserService.deleteUserById(id);
+        appUserService.deleteUser(id);
         return "redirect:/users";
     }
 }

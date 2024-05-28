@@ -1,80 +1,132 @@
-// File: src/main/java/com/tracker/expense_tracker_application/service/ExpenseService.java
 package com.tracker.expense_tracker_application.service;
 
 import com.tracker.expense_tracker_application.model.Expense;
-import com.tracker.expense_tracker_application.repository.ExpenseRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 
 /**
- * Service class for handling operations related to Expense entities.
- * This class is marked as a Service, meaning it is a Spring component that holds business logic.
+ * Service interface for handling operations related to the Expense entity.
+ * This interface provides methods for CRUD operations and custom operations
+ * such as updating specific fields of an expense, deleting expenses by category or date range, etc.
  */
-@Service
-@Transactional
-public class ExpenseService {
-
-    private final ExpenseRepository expenseRepository;
-
-    @Autowired
-    public ExpenseService(ExpenseRepository expenseRepository) {
-        this.expenseRepository = expenseRepository;
-    }
+public interface ExpenseService {
 
     /**
-     * Fetches all Expense entities from the database.
-     * @return a list of all Expense entities
+     * Retrieves all expenses.
+     *
+     * @return a list of all expenses
      */
-    public List<Expense> findAllExpenses() {
-        return expenseRepository.findAll();
-    }
+    List<Expense> getAllExpenses();
 
     /**
-     * Fetches an Expense entity by its ID.
-     * @param id the ID of the Expense entity to fetch
-     * @return an Optional containing the Expense entity if found, or empty if not found
+     * Retrieves an expense by its ID.
+     *
+     * @param id the ID of the expense to retrieve
+     * @return the expense with the given ID
      */
-    public Optional<Expense> findExpenseById(Long id) {
-        return expenseRepository.findById(id);
-    }
+    Expense getExpenseById(Long id);
 
     /**
-     * Saves an Expense entity to the database.
-     * If the Expense entity already exists, it will be updated; otherwise, a new entity will be created.
-     * @param expense the Expense entity to save
-     * @return the saved Expense entity
+     * Creates a new expense.
+     *
+     * @param expense the expense to create
+     * @return the created expense
      */
-    public Expense saveExpense(Expense expense) {
-        return expenseRepository.save(expense);
-    }
+    Expense createExpense(Expense expense);
 
     /**
-     * Deletes an Expense entity by its ID.
-     * @param id the ID of the Expense entity to delete
+     * Updates an existing expense.
+     *
+     * @param id the ID of the expense to update
+     * @param expense the expense data to update
+     * @return the updated expense
      */
-    public void deleteExpenseById(Long id) {
-        expenseRepository.deleteById(id);
-    }
+    Expense updateExpense(Long id, Expense expense);
 
-    // Custom operations
-    public void updateAmountById(Double amount, Long id) {
-        expenseRepository.updateAmountById(amount, id);
-    }
+    /**
+     * Deletes an expense by its ID.
+     *
+     * @param id the ID of the expense to delete
+     */
+    void deleteExpense(Long id);
 
-    public void deleteByCategory(String category) {
-        expenseRepository.deleteByCategory(category);
-    }
+    // Custom Operations
 
-    public List<Expense> findByUserId(Long userId) {
-        return expenseRepository.findByUserId(userId);
-    }
+    /**
+     * Updates the amount of an expense.
+     *
+     * @param id the ID of the expense to update
+     * @param amount the new amount
+     */
+    void updateExpenseAmount(Long id, Double amount);
 
-    public List<Expense> findByDateRange(LocalDate startDate, LocalDate endDate) {
-        return expenseRepository.findByDateRange(startDate, endDate);
-    }
+    /**
+     * Deletes expenses by category.
+     *
+     * @param category the category of the expenses to delete
+     */
+    void deleteByCategory(String category);
+
+    /**
+     * Updates the description of an expense.
+     *
+     * @param id the ID of the expense to update
+     * @param description the new description
+     */
+    void updateExpenseDescription(Long id, String description);
+
+    /**
+     * Updates the category of an expense.
+     *
+     * @param id the ID of the expense to update
+     * @param category the new category
+     */
+    void updateExpenseCategory(Long id, String category);
+
+    /**
+     * Deletes expenses by date range.
+     *
+     * @param startDate the start date of the range
+     * @param endDate the end date of the range
+     */
+    void deleteByDateRange(LocalDate startDate, LocalDate endDate);
+
+    /**
+     * Updates the date of an expense.
+     *
+     * @param id the ID of the expense to update
+     * @param date the new date
+     */
+    void updateExpenseDate(Long id, LocalDate date);
+
+    /**
+     * Updates the user of an expense.
+     *
+     * @param id the ID of the expense to update
+     * @param userId the ID of the new user
+     */
+    void updateExpenseUser(Long id, Long userId);
+
+    /**
+     * Deletes expenses by user.
+     *
+     * @param userId the ID of the user whose expenses to delete
+     */
+    void deleteByUser(Long userId);
+
+    /**
+     * Updates multiple expenses.
+     *
+     * @param ids the IDs of the expenses to update
+     * @param amount the new amount
+     * @param description the new description
+     */
+    void updateMultipleExpenses(List<Long> ids, Double amount, String description);
+
+    /**
+     * Deletes an expense by id.
+     *
+     * @param id the ID of the expense to delete
+     */
+    void deleteById(Long id);
 }
