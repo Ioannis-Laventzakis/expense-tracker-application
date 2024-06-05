@@ -9,7 +9,7 @@ import java.util.List;
  * Service interface for handling operations related to the AppUser entity.
  * This interface provides methods for CRUD operations.
  */
-public interface UserService{
+public interface UserService {
 
     /**
      * Retrieves all users.

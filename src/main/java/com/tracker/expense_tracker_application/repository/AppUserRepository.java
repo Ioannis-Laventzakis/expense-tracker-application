@@ -13,5 +13,12 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface AppUserRepository extends JpaRepository<AppUser, Long> {
+    /**
+     * Finds a user by their username.
+     *
+     * @param username the username of the user to find
+     * @return the user with the given username
+     */
 
+    AppUser findByUsername(String username);
 }
