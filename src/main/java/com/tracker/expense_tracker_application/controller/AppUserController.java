@@ -3,10 +3,12 @@ package com.tracker.expense_tracker_application.controller;
 import com.tracker.expense_tracker_application.model.AppUser;
 import com.tracker.expense_tracker_application.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.beans.Encoder;
 import java.util.List;
 import java.util.Optional;
 
@@ -96,4 +98,20 @@ public class AppUserController {
         appUserService.deleteUser(id);
         return "redirect:/users";
     }
+    @Autowired
+    private PasswordEncoder passwordencoder;
+
+    @GetMapping("/register")
+    public String showRegistrationForm(Model model) {
+        model.addAttribute("user", new AppUser());
+        return "register";
+    }
+    @PostMapping("/register")
+    public String registerUser(@ModelAttribute AppUser user) {
+        user.setPassword(passwordencoder.encode(user.getPassword()));
+        appUserService.createUser(user);
+        return "redirect:/login";
+    }
+
+
 }
