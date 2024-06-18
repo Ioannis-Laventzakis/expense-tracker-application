@@ -1,6 +1,6 @@
 package com.tracker.expense_tracker_application.controller;
 
-import com.tracker.expense_tracker_application.model.AppUser;
+import com.tracker.expense_tracker_application.model.User;
 import com.tracker.expense_tracker_application.service.ExpenseService;
 import com.tracker.expense_tracker_application.service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,7 +50,7 @@ public class ExpenseController {
      */
     @GetMapping("/new")
     public String showUserForm(Model model) {
-        AppUser user = new AppUser();
+        User user = new User();
         model.addAttribute("user", user);
         return "user-form";
     }
@@ -62,7 +62,7 @@ public class ExpenseController {
      * @return the redirect view name
      */
     @PostMapping
-    public String saveUser(@ModelAttribute("user") AppUser user) {
+    public String saveUser(@ModelAttribute("user") User user) {
         userService.createUser(user);
         return "redirect:/expenses";
     }
@@ -76,7 +76,7 @@ public class ExpenseController {
      */
     @GetMapping("/edit/{id}")
     public String showEditForm(@PathVariable Long id, Model model) {
-        AppUser user = userService.getUserById(id);
+        User user = userService.getUserById(id);
         model.addAttribute("user", user);
         return "user-form";
     }
@@ -89,7 +89,7 @@ public class ExpenseController {
      * @return the redirect view name
      */
     @PostMapping("/update/{id}")
-    public String updateUser(@PathVariable Long id, @ModelAttribute("user") AppUser user) {
+    public String updateUser(@PathVariable Long id, @ModelAttribute("user") User user) {
         userService.updateUser(id, user);
         return "redirect:/expenses";
     }

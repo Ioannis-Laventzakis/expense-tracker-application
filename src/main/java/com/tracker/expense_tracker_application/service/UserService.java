@@ -1,7 +1,7 @@
 // File: UserService.java
 package com.tracker.expense_tracker_application.service;
 
-import com.tracker.expense_tracker_application.model.AppUser;
+import com.tracker.expense_tracker_application.model.User;
 
 import java.util.List;
 
@@ -16,7 +16,7 @@ public interface UserService {
      *
      * @return a list of all users
      */
-    List<AppUser> getAllUsers();
+    List<User> getAllUsers();
 
     /**
      * Retrieves a user by its ID.
@@ -24,7 +24,7 @@ public interface UserService {
      * @param id the ID of the user to retrieve
      * @return the user with the given ID
      */
-    AppUser getUserById(Long id);
+    User getUserById(Long id);
 
     /**
      * Creates a new user.
@@ -32,7 +32,7 @@ public interface UserService {
      * @param user the user to create
      * @return the created user
      */
-    AppUser createUser(AppUser user);
+    User createUser(User user);
 
     /**
      * Updates an existing user.
@@ -41,7 +41,7 @@ public interface UserService {
      * @param user the user data to update
      * @return the updated user
      */
-    AppUser updateUser(Long id, AppUser user);
+    User updateUser(Long id, User user);
 
     /**
      * Deletes a user by its ID.

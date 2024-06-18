@@ -1,6 +1,6 @@
 package com.tracker.expense_tracker_application.service;
 
-import com.tracker.expense_tracker_application.model.AppUser;
+import com.tracker.expense_tracker_application.model.User;
 import com.tracker.expense_tracker_application.repository.AppUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,7 +26,7 @@ public class UserServiceImpl implements UserService {
      * @return a list of all users
      */
     @Override
-    public List<AppUser> getAllUsers() {
+    public List<User> getAllUsers() {
         return userRepository.findAll();
     }
 
@@ -37,7 +37,7 @@ public class UserServiceImpl implements UserService {
      * @return the user with the given ID or null if no such user exists
      */
     @Override
-    public AppUser getUserById(Long id) {
+    public User getUserById(Long id) {
         return userRepository.findById(id).orElse(null);
     }
 
@@ -48,7 +48,7 @@ public class UserServiceImpl implements UserService {
      * @return the created user
      */
     @Override
-    public AppUser createUser(AppUser user) {
+    public User createUser(User user) {
         return userRepository.save(user);
     }
 
@@ -61,11 +61,11 @@ public class UserServiceImpl implements UserService {
      * @throws IllegalArgumentException if the provided id is null
      */
     @Override
-    public AppUser updateUser(Long id, AppUser user) {
+    public User updateUser(Long id, User user) {
         if (id == null) {
             throw new IllegalArgumentException("id must not be null");
         }
-        AppUser existingUser = userRepository.findById(id).orElse(null);
+        User existingUser = userRepository.findById(id).orElse(null);
         if (existingUser != null) {
             existingUser.setUsername(user.getUsername());
             existingUser.setPassword(user.getPassword());

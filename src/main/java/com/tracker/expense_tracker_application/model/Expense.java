@@ -1,6 +1,5 @@
 package com.tracker.expense_tracker_application.model;
 
-import com.tracker.expense_tracker_application.model.AppUser;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
@@ -24,7 +23,7 @@ public class Expense {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private AppUser user;
+    private User user;
 
     /**
      * Default constructor for Expense.
@@ -41,7 +40,7 @@ public class Expense {
      * @param date the date of the expense
      * @param user the user who made the expense
      */
-    public Expense(Double amount, String category, String description, LocalDate date, AppUser user) {
+    public Expense(Double amount, String category, String description, LocalDate date, User user) {
         this.amount = amount;
         this.category = category;
         this.description = description;
@@ -59,7 +58,7 @@ public class Expense {
      * @param date the date of the expense
      * @param user the user who made the expense
      */
-    public Expense(Long id, Double amount, String category, String description, LocalDate date, AppUser user) {
+    public Expense(Long id, Double amount, String category, String description, LocalDate date, User user) {
         this.id = id;
         this.amount = amount;
         this.category = category;
@@ -163,7 +162,7 @@ public class Expense {
      *
      * @return the user who made the expense
      */
-    public AppUser getUser() {
+    public User getUser() {
         return user;
     }
 
@@ -172,7 +171,7 @@ public class Expense {
      *
      * @param user the user to set
      */
-    public void setUser(AppUser user) {
+    public void setUser(User user) {
         this.user = user;
     }
 }

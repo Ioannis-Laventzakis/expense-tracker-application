@@ -1,6 +1,6 @@
 package com.tracker.expense_tracker_application.controller;
 
-import com.tracker.expense_tracker_application.model.AppUser;
+import com.tracker.expense_tracker_application.model.User;
 import com.tracker.expense_tracker_application.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -8,7 +8,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.beans.Encoder;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,7 +16,7 @@ import java.util.Optional;
  */
 @Controller
 @RequestMapping("/users")
-public class AppUserController {
+public class UserController {
 
     private final UserService appUserService;
 
@@ -27,7 +26,7 @@ public class AppUserController {
      * @param appUserService the user service to be used by this controller
      */
     @Autowired
-    public AppUserController(UserService appUserService) {
+    public UserController(UserService appUserService) {
         this.appUserService = appUserService;
     }
 
@@ -39,7 +38,7 @@ public class AppUserController {
      */
     @GetMapping
     public String getAllUsers(Model model) {
-        List<AppUser> users = appUserService.getAllUsers();
+        List<User> users = appUserService.getAllUsers();
         model.addAttribute("users", users);
         return "user-list";
     }
@@ -53,7 +52,7 @@ public class AppUserController {
      */
     @GetMapping("/{id}")
     public String getUserById(@PathVariable Long id, Model model) {
-        Optional<AppUser> userOpt = Optional.ofNullable(appUserService.getUserById(id));
+        Optional<User> userOpt = Optional.ofNullable(appUserService.getUserById(id));
         if (userOpt.isPresent()) {
             model.addAttribute("user", userOpt.get());
             return "user-detail";
@@ -71,7 +70,7 @@ public class AppUserController {
      */
     @GetMapping("/new")
     public String createUserForm(Model model) {
-        model.addAttribute("user", new AppUser());
+        model.addAttribute("user", new User());
         return "user-form";
     }
 
@@ -82,7 +81,7 @@ public class AppUserController {
      * @return the redirect view name
      */
     @PostMapping
-    public String saveUser(@ModelAttribute AppUser user) {
+    public String saveUser(@ModelAttribute User user) {
         appUserService.createUser(user);
         return "redirect:/users";
     }
@@ -103,11 +102,11 @@ public class AppUserController {
 
     @GetMapping("/register")
     public String showRegistrationForm(Model model) {
-        model.addAttribute("user", new AppUser());
+        model.addAttribute("user", new User());
         return "register";
     }
     @PostMapping("/register")
-    public String registerUser(@ModelAttribute AppUser user) {
+    public String registerUser(@ModelAttribute User user) {
         user.setPassword(passwordencoder.encode(user.getPassword()));
         appUserService.createUser(user);
         return "redirect:/login";

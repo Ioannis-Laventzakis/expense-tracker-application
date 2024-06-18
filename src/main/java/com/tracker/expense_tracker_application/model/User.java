@@ -7,7 +7,7 @@ import jakarta.persistence.*;
  */
 @Entity
 @Table(name = "app_user")
-public class AppUser {
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,7 +22,7 @@ public class AppUser {
     /**
      * Default constructor for AppUser.
      */
-    public AppUser() {
+    public User() {
     }
 
     /**
@@ -32,7 +32,7 @@ public class AppUser {
      * @param password the password of the user
      * @param email the email of the user
      */
-    public AppUser(String username, String password, String email) {
+    public User(String username, String password, String email) {
         this.username = username;
         this.password = password;
         this.email = email;
@@ -46,7 +46,7 @@ public class AppUser {
      * @param password the password of the user
      * @param email the email of the user
      */
-    public AppUser(Long id, String username, String password, String email) {
+    public User(Long id, String username, String password, String email) {
         this.id = id;
         this.username = username;
         this.password = password;

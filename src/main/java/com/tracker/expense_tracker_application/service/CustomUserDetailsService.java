@@ -1,6 +1,6 @@
 package com.tracker.expense_tracker_application.service;
 
-import com.tracker.expense_tracker_application.model.AppUser;
+import com.tracker.expense_tracker_application.model.User;
 import com.tracker.expense_tracker_application.repository.AppUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -19,7 +19,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        AppUser user = userRepository.findByUsername(username);
+        User user = userRepository.findByUsername(username);
         if (user == null) {
             throw new UsernameNotFoundException("User not found");
         }

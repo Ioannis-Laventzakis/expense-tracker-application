@@ -59,8 +59,8 @@ public interface ExpenseRepository extends JpaRepository<Expense, Long> {
      * @param id the id of the expense to update
      * @param category the new category
      */
-    @Modifying
-    @Transactional
+    @Modifying // Modifying annotation is used to indicate that the query is modifying the data in the database.
+    @Transactional // Transactional annotation is used to indicate that the method should be run within a transaction.
     @Query("UPDATE Expense e SET e.category = :category WHERE e.id = :id")
     void updateExpenseCategory(Long id, String category);
 
