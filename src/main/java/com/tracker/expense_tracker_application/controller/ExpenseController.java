@@ -1,8 +1,8 @@
 package com.tracker.expense_tracker_application.controller;
 
 import com.tracker.expense_tracker_application.model.User;
-import com.tracker.expense_tracker_application.service.ExpenseService;
-import com.tracker.expense_tracker_application.service.UserServiceImpl;
+import com.tracker.expense_tracker_application.repository.ExpenseService;
+import com.tracker.expense_tracker_application.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 public class ExpenseController {
 
     private final ExpenseService expenseService;
-    private final UserServiceImpl userService;
+    private final UserService userService;
 
     /**
      * Constructor for ExpenseController.
@@ -25,7 +25,7 @@ public class ExpenseController {
      * @param userService the user service to be used by this controller
      */
     @Autowired
-    public ExpenseController(ExpenseService expenseService, UserServiceImpl userService) {
+    public ExpenseController(ExpenseService expenseService, UserService userService) {
         this.expenseService = expenseService;
         this.userService = userService;
     }

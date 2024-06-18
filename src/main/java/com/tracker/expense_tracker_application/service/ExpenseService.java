@@ -1,22 +1,42 @@
 package com.tracker.expense_tracker_application.service;
 
 import com.tracker.expense_tracker_application.model.Expense;
+import com.tracker.expense_tracker_application.repository.ExpenseRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import java.time.LocalDate;
 import java.util.List;
 
 /**
- * Service interface for handling operations related to the Expense entity.
- * This interface provides methods for CRUD operations and custom operations
+ * Service class for handling operations related to the Expense entity.
+ * This class implements the ExpenseService interface and provides methods for CRUD operations and custom operations
  * such as updating specific fields of an expense, deleting expenses by category or date range, etc.
  */
-public interface ExpenseService {
+@Service
+public class ExpenseService implements com.tracker.expense_tracker_application.repository.ExpenseService {
+
+    private final ExpenseRepository expenseRepository;
+
+    /**
+     * Constructor for ExpenseServiceImpl.
+     *
+     * @param expenseRepository the repository to be used
+     */
+    @Autowired
+    public ExpenseService(ExpenseRepository expenseRepository) {
+        this.expenseRepository = expenseRepository;
+    }
 
     /**
      * Retrieves all expenses.
      *
      * @return a list of all expenses
      */
-    List<Expense> getAllExpenses();
+    @Override
+    public List<Expense> getAllExpenses() {
+        return expenseRepository.findAll();
+    }
 
     /**
      * Retrieves an expense by its ID.
@@ -24,7 +44,10 @@ public interface ExpenseService {
      * @param id the ID of the expense to retrieve
      * @return the expense with the given ID
      */
-    Expense getExpenseById(Long id);
+    @Override
+    public Expense getExpenseById(Long id) {
+        return expenseRepository.findById(id).orElse(null);
+    }
 
     /**
      * Creates a new expense.
@@ -32,23 +55,41 @@ public interface ExpenseService {
      * @param expense the expense to create
      * @return the created expense
      */
-    Expense createExpense(Expense expense);
+    @Override
+    public Expense createExpense(Expense expense) {
+        return expenseRepository.save(expense);
+    }
 
     /**
      * Updates an existing expense.
      *
      * @param id the ID of the expense to update
-     * @param expense the expense data to update
+     * @param expenseDetails the expense data to update
      * @return the updated expense
      */
-    Expense updateExpense(Long id, Expense expense);
+    @Override
+    public Expense updateExpense(Long id, Expense expenseDetails) {
+        Expense expense = expenseRepository.findById(id).orElse(null);
+        if (expense != null) {
+            expense.setAmount(expenseDetails.getAmount());
+            expense.setCategory(expenseDetails.getCategory());
+            expense.setDescription(expenseDetails.getDescription());
+            expense.setDate(expenseDetails.getDate());
+            expense.setUser(expenseDetails.getUser());
+            return expenseRepository.save(expense);
+        }
+        return null;
+    }
 
     /**
      * Deletes an expense by its ID.
      *
      * @param id the ID of the expense to delete
      */
-    void deleteExpense(Long id);
+    @Override
+    public void deleteExpense(Long id) {
+        expenseRepository.deleteById(id);
+    }
 
     // Custom Operations
 
@@ -58,14 +99,20 @@ public interface ExpenseService {
      * @param id the ID of the expense to update
      * @param amount the new amount
      */
-    void updateExpenseAmount(Long id, Double amount);
+    @Override
+    public void updateExpenseAmount(Long id, Double amount) {
+
+    }
 
     /**
      * Deletes expenses by category.
      *
      * @param category the category of the expenses to delete
      */
-    void deleteByCategory(String category);
+    @Override
+    public void deleteByCategory(String category) {
+
+    }
 
     /**
      * Updates the description of an expense.
@@ -73,7 +120,10 @@ public interface ExpenseService {
      * @param id the ID of the expense to update
      * @param description the new description
      */
-    void updateExpenseDescription(Long id, String description);
+    @Override
+    public void updateExpenseDescription(Long id, String description) {
+
+    }
 
     /**
      * Updates the category of an expense.
@@ -81,7 +131,10 @@ public interface ExpenseService {
      * @param id the ID of the expense to update
      * @param category the new category
      */
-    void updateExpenseCategory(Long id, String category);
+    @Override
+    public void updateExpenseCategory(Long id, String category) {
+
+    }
 
     /**
      * Deletes expenses by date range.
@@ -89,7 +142,10 @@ public interface ExpenseService {
      * @param startDate the start date of the range
      * @param endDate the end date of the range
      */
-    void deleteByDateRange(LocalDate startDate, LocalDate endDate);
+    @Override
+    public void deleteByDateRange(LocalDate startDate, LocalDate endDate) {
+
+    }
 
     /**
      * Updates the date of an expense.
@@ -97,7 +153,10 @@ public interface ExpenseService {
      * @param id the ID of the expense to update
      * @param date the new date
      */
-    void updateExpenseDate(Long id, LocalDate date);
+    @Override
+    public void updateExpenseDate(Long id, LocalDate date) {
+
+    }
 
     /**
      * Updates the user of an expense.
@@ -105,14 +164,20 @@ public interface ExpenseService {
      * @param id the ID of the expense to update
      * @param userId the ID of the new user
      */
-    void updateExpenseUser(Long id, Long userId);
+    @Override
+    public void updateExpenseUser(Long id, Long userId) {
+
+    }
 
     /**
      * Deletes expenses by user.
      *
      * @param userId the ID of the user whose expenses to delete
      */
-    void deleteByUser(Long userId);
+    @Override
+    public void deleteByUser(Long userId) {
+
+    }
 
     /**
      * Updates multiple expenses.
@@ -121,12 +186,18 @@ public interface ExpenseService {
      * @param amount the new amount
      * @param description the new description
      */
-    void updateMultipleExpenses(List<Long> ids, Double amount, String description);
+    @Override
+    public void updateMultipleExpenses(List<Long> ids, Double amount, String description) {
+
+    }
 
     /**
      * Deletes an expense by id.
      *
      * @param id the ID of the expense to delete
      */
-    void deleteById(Long id);
+    @Override
+    public void deleteById(Long id) {
+
+    }
 }

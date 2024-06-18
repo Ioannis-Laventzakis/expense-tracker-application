@@ -1,7 +1,7 @@
 package com.tracker.expense_tracker_application.controller;
 
 import com.tracker.expense_tracker_application.model.User;
-import com.tracker.expense_tracker_application.service.UserService;
+import com.tracker.expense_tracker_application.repository.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
