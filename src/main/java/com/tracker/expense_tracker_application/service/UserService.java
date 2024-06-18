@@ -1,7 +1,7 @@
 package com.tracker.expense_tracker_application.service;
 
 import com.tracker.expense_tracker_application.model.User;
-import com.tracker.expense_tracker_application.repository.AppUserRepository;
+import com.tracker.expense_tracker_application.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,7 +18,7 @@ public class UserService implements com.tracker.expense_tracker_application.repo
      * The repository to be used for CRUD operations.
      */
     @Autowired
-    private AppUserRepository userRepository;
+    private UserRepository userRepository;
 
     /**
      * Retrieves all users.

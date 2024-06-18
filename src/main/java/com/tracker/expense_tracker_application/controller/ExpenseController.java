@@ -1,7 +1,6 @@
 package com.tracker.expense_tracker_application.controller;
 
 import com.tracker.expense_tracker_application.model.User;
-import com.tracker.expense_tracker_application.repository.ExpenseService;
 import com.tracker.expense_tracker_application.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
