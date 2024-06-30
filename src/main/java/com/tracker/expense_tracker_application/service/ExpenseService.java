@@ -14,7 +14,7 @@ import java.util.List;
  * such as updating specific fields of an expense, deleting expenses by category or date range, etc.
  */
 @Service
-public class ExpenseService implements com.tracker.expense_tracker_application.repository.ExpenseService {
+public class ExpenseService implements com.tracker.expense_tracker_application.repository.UserService {
 
     private final ExpenseRepository expenseRepository;
 
