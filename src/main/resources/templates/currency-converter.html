@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Currency Converter</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <h2 class="text-center mt-5">Currency Converter</h2>
+            <form th:action="@{/currency-converter}" method="post">
+                <div class="mb-3">
+                    <label for="fromCurrency" class="form-label">From Currency</label>
+                    <select class="form-control" id="fromCurrency" name="fromCurrency" required>
+                        <option th:each="currency : ${supportedCurrencies}" th:value="${currency}" th:text="${currency}"
+                                th:selected="${currency} == 'USD'"></option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="toCurrency" class="form-label">To Currency</label>
+                    <select class="form-control" id="toCurrency" name="toCurrency" required>
+                        <option th:each="currency : ${supportedCurrencies}" th:value="${currency}" th:text="${currency}"
+                                th:selected="${currency} == 'EUR'"></option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="amount" class="form-label">Amount</label>
+                    <input type="number" step="0.01" class="form-control" id="amount" name="amount" required>
+                </div>
+                <button type="submit" class="btn btn-primary w-100">Convert</button>
+            </form>
+            <div th:if="${convertedAmount}">
+                <h3 class="text-center mt-3">Converted Amount: <span th:text="${convertedAmount}"></span></h3>
+            </div>
+            <div class="text-center mt-3">
+                <a th:href="@{/}" class="btn btn-secondary">Back Home</a>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
