@@ -11,6 +11,11 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
+/**
+ * This is a configuration class for Spring Security.
+ * It defines beans for password encoding, security filter chain, and authentication manager.
+ * It also configures the security filter chain with authorization rules, form login, and logout settings.
+ */
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
@@ -18,29 +23,40 @@ public class SecurityConfig {
     @Autowired
     private CustomUserDetailsService customUserDetailsService;
 
+    /**
+     * This method defines a PasswordEncoder bean.
+     * BCryptPasswordEncoder is a password encoder that uses the BCrypt strong hashing function.
+     *
+     * @return a BCryptPasswordEncoder instance
+     */
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
+    /**
+     * This method defines a SecurityFilterChain bean.
+     * It configures the security filter chain with authorization rules, form login, and logout settings.
+     *
+     * @param http an HttpSecurity instance
+     * @return a SecurityFilterChain instance
+     * @throws Exception if any error occurs during the configuration
+     */
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
         http
-
                 .authorizeHttpRequests(
                         authorizeRequests -> authorizeRequests
                                 .requestMatchers("/signup", "/login").permitAll()
                                 .anyRequest().authenticated()
                 )
-
                 .formLogin(
                         formLogin -> formLogin
                                 .loginPage("/login")
                                 .defaultSuccessUrl("/", true)
                                 .permitAll()
                 )
-
                 .logout(
                         logout -> logout
                                 .logoutUrl("/logout")
@@ -53,6 +69,14 @@ public class SecurityConfig {
         return http.build();
     }
 
+    /**
+     * This method defines an AuthenticationManager bean.
+     * It configures the authentication manager with a user details service and a password encoder.
+     *
+     * @param http an HttpSecurity instance
+     * @return an AuthenticationManager instance
+     * @throws Exception if any error occurs during the configuration
+     */
     @Bean
     public AuthenticationManager authenticationManager(HttpSecurity http) throws Exception {
         AuthenticationManagerBuilder authenticationManagerBuilder =

@@ -12,17 +12,15 @@ import java.time.LocalDate;
 import java.util.List;
 
 /**
- * Repository interface for handling operations related to the Expense entity.
- * This interface extends JpaRepository which provides JPA related methods
- * such as save(), findOne(), findAll(), count(), delete() etc.
- * By extending JpaRepository, we get a bunch of generic CRUD methods into
- * our type that allows saving Expenses, deleting them and so on.
+ * This is a repository interface for the Expense entity.
+ * It extends JpaRepository to provide CRUD operations on the Expense entity.
+ * It also includes custom methods for updating and deleting expenses based on various parameters.
  */
 @Repository
 public interface ExpenseRepository extends JpaRepository<Expense, Long> {
 
     /**
-     * Updates the amount of an expense.
+     * Updates the amount of an expense with the given id.
      *
      * @param id the id of the expense to update
      * @param amount the new amount
@@ -33,7 +31,7 @@ public interface ExpenseRepository extends JpaRepository<Expense, Long> {
     void updateExpenseAmount(Long id, Double amount);
 
     /**
-     * Deletes expenses by category.
+     * Deletes expenses with the given category.
      *
      * @param category the category of the expenses to delete
      */
@@ -43,7 +41,7 @@ public interface ExpenseRepository extends JpaRepository<Expense, Long> {
     void deleteByCategory(String category);
 
     /**
-     * Updates the description of an expense.
+     * Updates the description of an expense with the given id.
      *
      * @param id the id of the expense to update
      * @param description the new description
@@ -54,18 +52,18 @@ public interface ExpenseRepository extends JpaRepository<Expense, Long> {
     void updateExpenseDescription(Long id, String description);
 
     /**
-     * Updates the category of an expense.
+     * Updates the category of an expense with the given id.
      *
      * @param id the id of the expense to update
      * @param category the new category
      */
-    @Modifying // Modifying annotation is used to indicate that the query is modifying the data in the database.
-    @Transactional // Transactional annotation is used to indicate that the method should be run within a transaction.
+    @Modifying
+    @Transactional
     @Query("UPDATE Expense e SET e.category = :category WHERE e.id = :id")
     void updateExpenseCategory(Long id, String category);
 
     /**
-     * Deletes expenses by date range.
+     * Deletes expenses within the given date range.
      *
      * @param startDate the start date of the range
      * @param endDate the end date of the range
@@ -76,7 +74,7 @@ public interface ExpenseRepository extends JpaRepository<Expense, Long> {
     void deleteByDateRange(LocalDate startDate, LocalDate endDate);
 
     /**
-     * Updates the date of an expense.
+     * Updates the date of an expense with the given id.
      *
      * @param id the id of the expense to update
      * @param date the new date
@@ -87,7 +85,7 @@ public interface ExpenseRepository extends JpaRepository<Expense, Long> {
     void updateExpenseDate(Long id, LocalDate date);
 
     /**
-     * Updates the user of an expense.
+     * Updates the user of an expense with the given id.
      *
      * @param id the id of the expense to update
      * @param userId the id of the new user
@@ -98,7 +96,7 @@ public interface ExpenseRepository extends JpaRepository<Expense, Long> {
     void updateExpenseUser(Long id, Long userId);
 
     /**
-     * Deletes expenses by user.
+     * Deletes expenses of a user with the given id.
      *
      * @param userId the id of the user whose expenses to delete
      */
@@ -108,7 +106,7 @@ public interface ExpenseRepository extends JpaRepository<Expense, Long> {
     void deleteByUser(Long userId);
 
     /**
-     * Updates multiple expenses.
+     * Updates multiple expenses with the given ids.
      *
      * @param ids the ids of the expenses to update
      * @param amount the new amount
@@ -120,7 +118,7 @@ public interface ExpenseRepository extends JpaRepository<Expense, Long> {
     void updateMultipleExpenses(List<Long> ids, Double amount, String description);
 
     /**
-     * Deletes an expense by id.
+     * Deletes an expense with the given id.
      *
      * @param id the id of the expense to delete
      */

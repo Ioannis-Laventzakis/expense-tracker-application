@@ -1,6 +1,7 @@
 package com.tracker.expense_tracker_application.controller;
 
 import com.tracker.expense_tracker_application.model.User;
+import com.tracker.expense_tracker_application.service.ExpenseService;
 import com.tracker.expense_tracker_application.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -8,7 +9,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 /**
- * Controller for handling expense-related requests.
+ * This is a controller class for handling expense-related operations.
+ * It handles HTTP GET and POST requests for the "/expenses" endpoint.
+ * It uses the UserService to perform user-related operations.
  */
 @Controller
 @RequestMapping("/expenses")
@@ -18,7 +21,8 @@ public class ExpenseController {
     private final UserService userService;
 
     /**
-     * Constructor for ExpenseController.
+     * This is a constructor for the ExpenseController.
+     * It initializes the ExpenseService and UserService.
      *
      * @param expenseService the expense service to be used by this controller
      * @param userService the user service to be used by this controller
@@ -30,10 +34,12 @@ public class ExpenseController {
     }
 
     /**
-     * Handles GET requests to fetch all users.
+     * This method handles the HTTP GET request for the "/expenses" endpoint.
+     * It retrieves all users from the UserService and adds them to the model.
+     * It then returns the name of the view to be rendered, in this case "user-list".
      *
-     * @param model the model to which the users will be added
-     * @return the name of the view to be rendered
+     * @param model the model to add attributes to for the view
+     * @return the name of the view
      */
     @GetMapping
     public String listUsers(Model model) {
@@ -42,10 +48,12 @@ public class ExpenseController {
     }
 
     /**
-     * Handles GET requests to display the user creation form.
+     * This method handles the HTTP GET request for the "/expenses/new" endpoint.
+     * It creates a new User object and adds it to the model.
+     * It then returns the name of the view to be rendered, in this case "user-form".
      *
-     * @param model the model to which a new user will be added
-     * @return the name of the view to be rendered
+     * @param model the model to add attributes to for the view
+     * @return the name of the view
      */
     @GetMapping("/new")
     public String showUserForm(Model model) {
@@ -55,7 +63,9 @@ public class ExpenseController {
     }
 
     /**
-     * Handles POST requests to save a new user.
+     * This method handles the HTTP POST request for the "/expenses" endpoint.
+     * It saves a new user using the UserService.
+     * It then redirects to the "/expenses" endpoint.
      *
      * @param user the user to be saved
      * @return the redirect view name
@@ -67,11 +77,13 @@ public class ExpenseController {
     }
 
     /**
-     * Handles GET requests to display the user edit form.
+     * This method handles the HTTP GET request for the "/expenses/edit/{id}" endpoint.
+     * It retrieves a user by their ID using the UserService and adds them to the model.
+     * It then returns the name of the view to be rendered, in this case "user-form".
      *
      * @param id the ID of the user to edit
-     * @param model the model to which the user will be added
-     * @return the name of the view to be rendered
+     * @param model the model to add attributes to for the view
+     * @return the name of the view
      */
     @GetMapping("/edit/{id}")
     public String showEditForm(@PathVariable Long id, Model model) {
@@ -81,7 +93,9 @@ public class ExpenseController {
     }
 
     /**
-     * Handles POST requests to update a user.
+     * This method handles the HTTP POST request for the "/expenses/update/{id}" endpoint.
+     * It updates a user by their ID using the UserService.
+     * It then redirects to the "/expenses" endpoint.
      *
      * @param id the ID of the user to update
      * @param user the user data to update
@@ -94,7 +108,9 @@ public class ExpenseController {
     }
 
     /**
-     * Handles GET requests to delete a user by their ID.
+     * This method handles the HTTP GET request for the "/expenses/delete/{id}" endpoint.
+     * It deletes a user by their ID using the UserService.
+     * It then redirects to the "/expenses" endpoint.
      *
      * @param id the ID of the user to delete
      * @return the redirect view name

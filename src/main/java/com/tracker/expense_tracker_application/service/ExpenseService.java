@@ -14,12 +14,13 @@ import java.util.List;
  * such as updating specific fields of an expense, deleting expenses by category or date range, etc.
  */
 @Service
-public class ExpenseService implements com.tracker.expense_tracker_application.repository.UserService {
+public abstract class ExpenseService implements ExpenseService {
 
     private final ExpenseRepository expenseRepository;
 
     /**
      * Constructor for ExpenseServiceImpl.
+     *
      *
      * @param expenseRepository the repository to be used
      */
@@ -37,6 +38,8 @@ public class ExpenseService implements com.tracker.expense_tracker_application.r
     public List<Expense> getAllExpenses() {
         return expenseRepository.findAll();
     }
+
+    public abstract List<Expense> getAllExpenses();
 
     /**
      * Retrieves an expense by its ID.
