@@ -1,114 +1,112 @@
-Assignment: Expense Tracker Application
-Objective
-Develop an Expense Tracker application using Spring Boot, Thymeleaf, Bootstrap 5, PostgreSQL, JPA Hibernate, and JPQL. The application will help users manage their finances by logging expenses, categorizing them, and viewing summaries of their spending over time.
+# Expense Tracker
 
-Requirements
-Backend Development: Use Spring Boot to create RESTful APIs.
+## Overview
+The Expense Tracker is a simple application for managing user accounts and their expenses. It allows users to create new accounts, see all created accounts, create expenses, see all expenses, and search for expenses based on different criteria. The application is developed using Spring Boot, Thymeleaf, Bootstrap 5, PostgreSQL, JPA Hibernate, and JPQL.
 
-Frontend Interface: Use Thymeleaf and Bootstrap 5 for the user interface.
+## Project Structure
 
-Database: Use PostgreSQL for data storage.
+- **Model**: Contains the `User` entity class representing a user account as well as an `Expense` entity representing an expense.
+- **Repository**: Contains the `UserRepository` interface and the `ExpenseRepository` interface for database operations. The `ExpenseRepository` implements 10 custom operations using JPQL and `@Modifying`.
+- **Service**: Contains the `UserService` and `ExpenseService` interfaces for business logic. Service methods are annotated with `@Transactional` to ensure transactional integrity.
+- **Controller**: Contains the `ExpenseTrackerController` class for handling web requests. It implements endpoints for CRUD operations and custom operations.
+- **ExpenseTrackerApplication**: Runs the whole application.
+- **Templates**: Contains all HTML files developed using Thymeleaf templates and Bootstrap 5.
 
-ORM: Use JPA Hibernate for ORM and JPQL for custom queries.
+## Entities
 
-Transactional Operations: Implement 10 custom operations on the repository with @Modifying and @Transactional.
+### User Entity
+- `id`: Long (Primary Key)
+- `username`: String
+- `password`: String
+- `email`: String
 
-Entities
-User: Represents a user of the application.
+### Expense Entity
+- `id`: Long (Primary Key)
+- `amount`: Double
+- `description`: String
+- `category`: String
+- `date`: LocalDate
+- `user`: User (Many-to-One relationship)
 
-Expense: Represents an expense entry.
+## HTML Templates
 
-User Entity
-id: Long (Primary Key)
+### expense-detail.html
+- **Description**: Displays the details of a specific expense, including its ID, amount, description, category, date, and associated user. Provides a link to go back to the list of expenses.
 
-username: String
+### expense-form.html
+- **Description**: Provides a form for creating or editing an expense. Includes fields for the amount, description, category, date, and user. Offers a button to save the expense and a link to cancel the operation.
 
-password: String
+### expense-list.html
+- **Description**: Displays a list of all expenses in a table format, showing their ID, amount, description, category, date, and user. Provides links to view details or delete each expense and a button to add a new expense.
 
-email: String
+### user-detail.html
+- **Description**: Displays the details of a specific user, including their ID, username, and email. Provides a link to go back to the list of users.
 
-Expense Entity
-id: Long (Primary Key)
+### user-form.html
+- **Description**: Provides a form for creating or editing a user. Includes fields for the username, password, and email. Offers a button to save the user and a link to cancel the operation.
 
-amount: Double
+### user-list.html
+- **Description**: Displays a list of all users in a table format, showing their ID, username, and email. Provides links to view details or delete each user and a button to add a new user.
 
-description: String
+## Usage
 
-category: String
+### Home Page
+- **URL**: `/`
+- **Description**: Displays the home page.
 
-date: LocalDate
+### Create New User
+- **URL**: `/users/new`
+- **Method**: `GET`
+- **Description**: Displays the form to create a new user.
 
-user: User (Many-to-One relationship)
+- **URL**: `/users/new`
+- **Method**: `POST`
+- **Description**: Creates a new user and redirects to the home page.
 
-Tasks
-1. Set Up the Project
-Create a new Spring Boot project.
+### Create New Expense
+- **URL**: `/expenses/new`
+- **Method**: `GET`
+- **Description**: Displays the form to create a new expense.
 
-Add dependencies for Spring Data JPA, PostgreSQL, and Thymeleaf.
+- **URL**: `/expenses/new`
+- **Method**: `POST`
+- **Description**: Creates a new expense and redirects to the home page.
 
-2. Configure PostgreSQL Database
-Set up PostgreSQL database and configure application properties.
-3. Create Entities
-Define User and Expense entities with appropriate JPA annotations.
-4. Create Repositories
-Create UserRepository and ExpenseRepository interfaces extending JpaRepository.
-5. Implement Custom Repository Operations
-Implement 10 custom operations in the ExpenseRepository using JPQL and @Modifying.
-Required Custom Operations
-Update Expense Amount: Update the amount of an expense by its ID.
+### List all Expenses
+- **URL**: `/expenses/all`
+- **Method**: `GET`
+- **Description**: Displays all expenses.
 
-Delete Expense by Category: Delete all expenses of a specific category.
+## API Endpoints
 
-Update Expense Description: Update the description of an expense by its ID.
+| Endpoint       | Method | Description                       |
+| -------------- | ------ | --------------------------------- |
+| `/`            | GET    | Home page                         |
+| `/users/new`   | GET    | Display form to create a new user |
+| `/users/new`   | POST   | Create a new user                 |
+| `/expenses/new`| GET    | Display form to create a new expense |
+| `/expenses/new`| POST   | Create a new expense              |
+| `/expenses/all`| GET    | List all expenses                 |
 
-Update Expense Category: Update the category of an expense by its ID.
+## Setup Instructions
+1. **Clone the Repository**:
+    ```bash
+    git clone <repository-url>
+    cd expense-tracker
+    ```
+2. **Configure PostgreSQL Database**:
+    - Create a PostgreSQL database named `expense_tracker`.
+    - Update the `application.properties` file with your PostgreSQL credentials.
+3. **Build and Run the Application**:
+    ```bash
+    ./mvnw spring-boot:run
+    ```
+4. **Access the Application**:
+   Open your web browser and go to `http://localhost:8080`.
 
-Delete Expenses by Date Range: Delete all expenses within a specific date range.
-
-Update Expense Date: Update the date of an expense by its ID.
-
-Update Expense User: Update the user associated with an expense by its ID.
-
-Delete Expenses by User: Delete all expenses associated with a specific user.
-
-Update Multiple Expenses: Update multiple expenses based on a list of IDs.
-
-Delete Expense by ID: Delete an expense by its ID.
-
-6. Implement Service Layer
-Create UserService and ExpenseService classes.
-
-Annotate service methods with @Transactional to ensure transactional integrity.
-
-7. Create Controllers
-Create UserController and ExpenseController to handle HTTP requests.
-
-Implement endpoints for CRUD operations and custom operations.
-
-8. Develop Frontend
-Use Thymeleaf templates and Bootstrap 5 to create user-friendly interfaces.
-
-Implement forms for inputting expenses, viewing summaries, and categorizing expenses.
-
-10. Testing
-Manualy test the servicesand features.
-
-Ensure all custom operations are tested for correctness.
-
-Submission
-Submit the complete project with all source code, configuration files, and documentation.
-
-Include a README file with instructions on how to set up and run the application.
-
-Evaluation Criteria
-Correctness and completeness of the implementation.
-
-Proper use of Spring Boot, Thymeleaf, Bootstrap 5, PostgreSQL, JPA Hibernate, and JPQL.
-
-Implementation of 10 custom repository operations with @Modifying and @Transactional.
-
-User-friendly interface.
-
-Code quality, including readability, organization, and documentation.
-
-Good luck with your assignment! # expense-tracker-application
+## Evaluation Criteria
+- Correctness and completeness of the implementation.
+- Proper use of Spring Boot, Thymeleaf, Bootstrap 5, PostgreSQL, JPA Hibernate, and JPQL.
+- Implementation of 10 custom repository operations with `@Modifying` and `@Transactional`.
+- User-friendly interface.
+- Code quality, including readability, organization, and documentation.
