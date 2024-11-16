@@ -22,7 +22,7 @@ public class MailConfig {
      * It's configured with Simple Mail Transfer Protocol (SMTP) parameters such as host, port, username, and password.
      * It also sets JavaMail properties such as the transport protocol, SMTP authentication, and the enabling of the StartTLS command.
      *
-     * @return a JavaMailSender instance
+     * @return a JavaMailSender
      */
     @Bean
     public JavaMailSender javaMailSender(){
